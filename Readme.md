@@ -59,7 +59,7 @@ This project is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ```
 Renyul Game Engine
-Copyright (C) 2025  YourNameHere
+Copyright (C) 2025  TawhidBinOmar
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
