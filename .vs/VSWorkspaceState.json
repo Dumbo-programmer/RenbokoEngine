@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backup_duplicates",
+    "\\bin\\Debug",
+    "\\bin\\Release",
+    "\\bin\\Release\\net8.0",
+    "\\bin\\Release\\net9.0",
+    "\\Engine\\Assets",
+    "\\Engine\\Audio",
+    "\\Engine\\Packaging",
+    "\\Engine\\Physics"
+  ],
+  "SelectedNode": "\\DemoGame",
+  "PreviewInSolutionExplorer": false
+}
