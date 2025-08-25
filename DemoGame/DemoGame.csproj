@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+      <!-- Reference to the Renyul Engine project -->
+<ProjectReference Include="../MainEngine/RenyulEngine.csproj" /> 
     <!-- MonoGame for DesktopGL -->
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
     
-    <!-- Reference to the Renyul Engine project -->
-    <ProjectReference Include="..\Renyul Engine\Renyul Engine.csproj" />
-  </ItemGroup>
+ </ItemGroup>
 
 </Project>
