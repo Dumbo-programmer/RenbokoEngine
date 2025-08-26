@@ -7,29 +7,21 @@ namespace DemoGame
 {
     public class MainMenuScene : Scene
     {
-        private UIButton? startButton;
-        private readonly List<UIElement> _uiElements = new();
+    // No UI elements or assets needed for zero-asset demo
 
         protected override void Start()
         {
-            startButton = new UIButton();
-            startButton.Text = "Start Game";
-            startButton.OnClick += () => SceneManager.Load(new GameScene());
-            _uiElements.Add(startButton);
+            // No asset loading or UI setup
         }
 
         public override void Update()
         {
-            foreach (var ui in _uiElements)
-                ui.Update();
+            // No UI to update
         }
 
         public override void Render(RenyulEngine.Graphics.Renderer2D renderer)
         {
-            // You may want to load a font from renderer or AssetManager
-            var font = renderer.LoadFont("DefaultFont"); // Replace with your font asset name
-            foreach (var ui in _uiElements)
-                ui.Draw(renderer, font);
+            // Just clear the screen with a color (done in EngineGame), nothing else to render
         }
     }
 }

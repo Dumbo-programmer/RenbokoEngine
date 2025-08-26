@@ -7,8 +7,17 @@ namespace DemoGame
         [STAThread]
         static void Main()
         {
-            using var game = new GameApp();
-            game.Run();
+            try
+            {
+                using var game = new GameApp();
+                game.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unhandled exception: " + ex);
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+            }
         }
     }
 }

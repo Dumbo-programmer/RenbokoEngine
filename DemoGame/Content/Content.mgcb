@@ -1,0 +1,17 @@
+#----------------------------- Global Properties ----------------------------#
+/
+/ This is the MonoGame Content Build project file.
+/ It describes what content to build and how to build it.
+/
+
+#----------------------------- Content References ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:Windows
+/profile:Reach
+/compress:False
+
+/build:DefaultFont.spritefont
+/build:player.png
+/build:coin.png
