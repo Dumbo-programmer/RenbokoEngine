@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using RenyulEngine.Graphics;
-using RenyulEngine.Input;
-using RenyulEngine.Core;
+using RenbokoEngine.Graphics;
+using RenbokoEngine.Input;
+using RenbokoEngine.Core;
 
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     /// <summary>
     /// Horizontal slider, Value in [0,1].

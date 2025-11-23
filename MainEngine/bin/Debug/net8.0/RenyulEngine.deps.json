@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "RenyulEngine/1.0.0": {
+      "RenbokoEngine/1.0.0": {
         "dependencies": {
           "MonoGame.Framework.DesktopGL": "3.8.4"
         },
         "runtime": {
-          "RenyulEngine.dll": {}
+          "RenbokoEngine.dll": {}
         }
       },
       "MonoGame.Framework.DesktopGL/3.8.4": {
@@ -117,7 +117,7 @@
     }
   },
   "libraries": {
-    "RenyulEngine/1.0.0": {
+    "RenbokoEngine/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

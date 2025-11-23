@@ -1,6 +1,6 @@
-using RenyulEngine.Graphics;
+using RenbokoEngine.Graphics;
 
-namespace RenyulEngine.Scenes
+namespace RenbokoEngine.Scenes
 {
     public abstract class Scene
     {

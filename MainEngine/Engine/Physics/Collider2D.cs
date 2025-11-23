@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace RenyulEngine.Physics
+namespace RenbokoEngine.Physics
 {
     /// <summary>
     /// Base class for 2D colliders.

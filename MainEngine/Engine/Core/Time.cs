@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
 
-namespace RenyulEngine.Core
+namespace RenbokoEngine.Core
 {
 public class Time : IService
 {

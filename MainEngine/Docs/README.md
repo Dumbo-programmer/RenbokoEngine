@@ -2,17 +2,17 @@
     <img src="../RYENG.png" alt="RYENG" width="320"/>
 </div>
 
-# Renyul Game Engine Documentation
+# Renboko Game Engine Documentation
 
 ## Building and Running the Engine
 
 1. **Build the engine and all projects:**
     ```sh
-    dotnet build RenyulWorkspace.sln
+    dotnet build RenbokoWorkspace.sln
     ```
 ---
 
-Welcome to the Renyul Game Engine! This documentation covers the engine architecture, scripting API, and practical examples to help you build 2D games efficiently.
+Welcome to the Renboko Game Engine! This documentation covers the engine architecture, scripting API, and practical examples to help you build 2D games efficiently.
 
 ---
 
@@ -35,7 +35,7 @@ Welcome to the Renyul Game Engine! This documentation covers the engine architec
 ---
 
 ## Overview
-Renyul Game Engine is a modular, service-oriented 2D game engine built on MonoGame. It provides a clean API for scenes, rendering, input, physics, audio, UI, and asset management.
+Renboko Game Engine is a modular, service-oriented 2D game engine built on MonoGame. It provides a clean API for scenes, rendering, input, physics, audio, UI, and asset management.
 
 ---
 
@@ -85,7 +85,7 @@ If you get stuck, try cleaning and rebuilding the solution:
 
 ```sh
 dotnet clean
-dotnet build RenyulWorkspace.sln
+dotnet build RenbokoWorkspace.sln
 ```
 
 And if you fix a weird bug, add it here! (Sharing is caring.)

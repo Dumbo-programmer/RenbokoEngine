@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using RenyulEngine.Scenes;
-using RenyulEngine.UI;
-using RenyulEngine.Core;
+using RenbokoEngine.Scenes;
+using RenbokoEngine.UI;
+using RenbokoEngine.Core;
 
 namespace DemoGame
 {
@@ -19,7 +19,7 @@ namespace DemoGame
             // No UI to update
         }
 
-        public override void Render(RenyulEngine.Graphics.Renderer2D renderer)
+        public override void Render(RenbokoEngine.Graphics.Renderer2D renderer)
         {
             // Just clear the screen with a color (done in EngineGame), nothing else to render
         }

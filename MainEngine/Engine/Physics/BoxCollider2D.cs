@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using System;
-namespace RenyulEngine.Physics
+namespace RenbokoEngine.Physics
 {
     /// <summary>
     /// Axis-aligned box collider.

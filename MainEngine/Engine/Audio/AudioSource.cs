@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
-namespace RenyulEngine.Audio
+namespace RenbokoEngine.Audio
 {
     public class AudioSource
     {

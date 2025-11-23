@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RenyulEngine.Assets
+namespace RenbokoEngine.Assets
 {
     /// <summary>
     /// Describes assets that belong to a package/scene.

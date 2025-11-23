@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 
-namespace RenyulEngine.Packaging
+namespace RenbokoEngine.Packaging
 {
     /// <summary>
     /// Utility to export a package (.renpkg) as a ZIP file.

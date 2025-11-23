@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace RenyulEngine.Scenes
+namespace RenbokoEngine.Scenes
 {
     public static class SceneManager
     {

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using RenyulEngine.Graphics;
-using RenyulEngine.Physics;
-using RenyulEngine.Core;
-using RenyulEngine.Assets;
-using RenyulEngine.Audio;
+using RenbokoEngine.Graphics;
+using RenbokoEngine.Physics;
+using RenbokoEngine.Core;
+using RenbokoEngine.Assets;
+using RenbokoEngine.Audio;
 
-namespace RenyulEngine.Scenes
+namespace RenbokoEngine.Scenes
 {
     // This thing loads and saves scenes as JSON. It's pretty simple: just a list of entities, each with a transform and maybe a sprite, rigidbody, or collider.
     // If you want to make your own scene format, you can totally change this. I just wanted something that works for small games.

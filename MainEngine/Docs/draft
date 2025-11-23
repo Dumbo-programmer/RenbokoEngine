@@ -4,10 +4,10 @@ var keyboard = input.GetDevice<Input.KeyboardDevice>();
 if (keyboard.GetKeyDown(Keys.Space)) { /* jump */ }
 //scene
 // Save current scene
-await RenyulEngine.Scenes.SceneManager.SaveToFileAsync(RenyulEngine.Scenes.SceneManager.Current!, "Scenes/level1.json");
+await RenbokoEngine.Scenes.SceneManager.SaveToFileAsync(RenbokoEngine.Scenes.SceneManager.Current!, "Scenes/level1.json");
 
 // Load scene (async)
-await RenyulEngine.Scenes.SceneManager.LoadFromFileAsync("Scenes/level1.json");
+await RenbokoEngine.Scenes.SceneManager.LoadFromFileAsync("Scenes/level1.json");
 
 //ui
 // scene.Update()
@@ -46,13 +46,13 @@ var loaded = PackageImporter.LoadAssemblies(assemblies);
 
 //audio
 // change master volume
-RenyulEngine.Audio.AudioSystem.MasterVolume = 0.8f;
+RenbokoEngine.Audio.AudioSystem.MasterVolume = 0.8f;
 
 // mute/unmute
-RenyulEngine.Audio.AudioSystem.Muted = true;
+RenbokoEngine.Audio.AudioSystem.Muted = true;
 
 // per-group control
-var musicGroup = RenyulEngine.Audio.AudioSystem.GetOrCreateGroup("Music");
+var musicGroup = RenbokoEngine.Audio.AudioSystem.GetOrCreateGroup("Music");
 musicGroup.Volume = 0.5f;
 musicGroup.Mute = false;
 

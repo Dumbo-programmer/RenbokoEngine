@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace RenyulEngine.Physics
+namespace RenbokoEngine.Physics
 {
     /// <summary>
     /// Axis-Aligned Bounding Box for collision detection.

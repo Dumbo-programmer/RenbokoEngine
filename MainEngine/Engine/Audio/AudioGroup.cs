@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace RenyulEngine.Audio
+namespace RenbokoEngine.Audio
 {
     /// <summary>
     /// Represents a group (mixer channel) that controls volume/mute for multiple AudioSources.

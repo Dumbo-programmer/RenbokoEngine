@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
 using Microsoft.Xna.Framework.Input;
-using RenyulEngine.Graphics;
-using RenyulEngine.Input;
-using RenyulEngine.Core;
+using RenbokoEngine.Graphics;
+using RenbokoEngine.Input;
+using RenbokoEngine.Core;
 
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     /// <summary>
     /// Basic single-line text input. Click to focus, type letters/numbers, backspace supported.

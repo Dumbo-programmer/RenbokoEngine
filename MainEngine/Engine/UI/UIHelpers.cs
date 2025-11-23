@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
-using RenyulEngine.Graphics;
+using RenbokoEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     internal static class UIHelpers
     {

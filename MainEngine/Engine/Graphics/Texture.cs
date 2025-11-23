@@ -1,4 +1,4 @@
-namespace RenyulEngine.Graphics
+namespace RenbokoEngine.Graphics
 {
 public class Texture {}
 }

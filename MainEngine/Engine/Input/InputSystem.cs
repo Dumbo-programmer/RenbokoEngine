@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RenyulEngine.Input
+namespace RenbokoEngine.Input
 {
     /// <summary>
     /// Centralized input system that manages all input devices.

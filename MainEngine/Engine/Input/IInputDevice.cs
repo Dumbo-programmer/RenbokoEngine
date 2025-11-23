@@ -1,4 +1,4 @@
-namespace RenyulEngine.Input
+namespace RenbokoEngine.Input
 {
     /// <summary>
     /// Base interface for all input devices.

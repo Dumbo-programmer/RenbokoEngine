@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RenyulEngine.Graphics;
+using RenbokoEngine.Graphics;
 
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     public class UILayout : UIElement
     {

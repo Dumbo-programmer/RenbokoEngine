@@ -9,7 +9,7 @@
       "DemoGame/1.0.0": {
         "dependencies": {
           "MonoGame.Framework.DesktopGL": "3.8.4",
-          "RenyulEngine": "1.0.0"
+          "RenbokoEngine": "1.0.0"
         },
         "runtime": {
           "DemoGame.dll": {}
@@ -115,12 +115,12 @@
       },
       "System.Memory/4.5.3": {},
       "System.ValueTuple/4.5.0": {},
-      "RenyulEngine/1.0.0": {
+      "RenbokoEngine/1.0.0": {
         "dependencies": {
           "MonoGame.Framework.DesktopGL": "3.8.4"
         },
         "runtime": {
-          "RenyulEngine.dll": {
+          "RenbokoEngine.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -176,7 +176,7 @@
       "path": "system.valuetuple/4.5.0",
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
-    "RenyulEngine/1.0.0": {
+    "RenbokoEngine/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

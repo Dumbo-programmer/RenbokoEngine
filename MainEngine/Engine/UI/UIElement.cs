@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RenyulEngine.Graphics;
+using RenbokoEngine.Graphics;
 
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     // This is the base class for all UI stuff. Position and size are in pixels (screen space).
     // If you want to make a button or label or whatever, inherit from this!

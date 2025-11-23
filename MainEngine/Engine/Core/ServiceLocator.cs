@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RenyulEngine.Core
+namespace RenbokoEngine.Core
 {
     // Marker interface for services registered in the ServiceLocator
     public interface IService { }

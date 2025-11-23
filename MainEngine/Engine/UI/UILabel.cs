@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using RenyulEngine.Graphics;
+using RenbokoEngine.Graphics;
 
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     public class UILabel : UIElement
     {

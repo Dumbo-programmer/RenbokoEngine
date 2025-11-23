@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace RenyulEngine.Packaging
+namespace RenbokoEngine.Packaging
 {
     /// <summary>
     /// Imports a .renpkg (zip) into a target directory.

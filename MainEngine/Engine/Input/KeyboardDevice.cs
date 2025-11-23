@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace RenyulEngine.Input
+namespace RenbokoEngine.Input
 {
     /// <summary>
     /// Handles keyboard input.

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
 
-namespace RenyulEngine.Graphics
+namespace RenbokoEngine.Graphics
 {
 public class Renderer2D : Core.IService
 {

@@ -1,14 +1,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using RenyulEngine.Scenes;
-using RenyulEngine.Graphics;
-using RenyulEngine.Input;
-using RenyulEngine.Audio;
-using RenyulEngine.Physics;
-using RenyulEngine.Assets;
+using RenbokoEngine.Scenes;
+using RenbokoEngine.Graphics;
+using RenbokoEngine.Input;
+using RenbokoEngine.Audio;
+using RenbokoEngine.Physics;
+using RenbokoEngine.Assets;
 
-namespace RenyulEngine.Core
+namespace RenbokoEngine.Core
 {
     public class EngineGame : Game
     {

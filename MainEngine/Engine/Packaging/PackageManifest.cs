@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RenyulEngine.Packaging
+namespace RenbokoEngine.Packaging
 {
     /// <summary>
     /// Manifest stored inside .renpkg packages.

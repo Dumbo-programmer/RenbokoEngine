@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 
-namespace RenyulEngine.Input
+namespace RenbokoEngine.Input
 {
     /// <summary>
     /// Handles mouse input.

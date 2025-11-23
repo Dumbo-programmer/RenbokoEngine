@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace RenyulEngine.Physics
+namespace RenbokoEngine.Physics
 {
     /// <summary>
     /// Represents a 2D physics body with velocity, mass, and forces.
@@ -36,7 +36,7 @@ namespace RenyulEngine.Physics
             if (IsStatic) return;
 
             // Get time from service locator
-            var time = RenyulEngine.Core.ServiceLocator.Get<RenyulEngine.Core.Time>();
+            var time = RenbokoEngine.Core.ServiceLocator.Get<RenbokoEngine.Core.Time>();
             float dt = (float)time.DeltaTime;
 
             // Acceleration = F / m

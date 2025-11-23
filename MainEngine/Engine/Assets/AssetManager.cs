@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace RenyulEngine.Assets
+namespace RenbokoEngine.Assets
 {
     /// <summary>
-    /// Central asset manager for Renyul Engine.
+    /// Central asset manager for Renboko Engine.
     /// - Initialize with a ContentManager and GraphicsDevice (or via Renderer2D).
     /// - Caches assets and supports Acquire/Release (reference counting).
     /// - Provides both sync and async load helpers. Note: MonoGame ContentManager.Load is generally synchronous and not thread-safe.

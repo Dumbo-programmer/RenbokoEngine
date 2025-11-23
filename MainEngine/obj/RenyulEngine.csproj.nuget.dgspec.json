@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\Development\\RenyulEngine\\MainEngine\\RenyulEngine.csproj": {}
+    "C:\\Users\\User\\Documents\\Development\\RenbokoEngine\\MainEngine\\RenbokoEngine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\Development\\RenyulEngine\\MainEngine\\RenyulEngine.csproj": {
+    "C:\\Users\\User\\Documents\\Development\\RenbokoEngine\\MainEngine\\RenbokoEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\Development\\RenyulEngine\\MainEngine\\RenyulEngine.csproj",
-        "projectName": "RenyulEngine",
-        "projectPath": "C:\\Users\\User\\Documents\\Development\\RenyulEngine\\MainEngine\\RenyulEngine.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\Development\\RenbokoEngine\\MainEngine\\RenbokoEngine.csproj",
+        "projectName": "RenbokoEngine",
+        "projectPath": "C:\\Users\\User\\Documents\\Development\\RenbokoEngine\\MainEngine\\RenbokoEngine.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\Development\\RenyulEngine\\MainEngine\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\Development\\RenbokoEngine\\MainEngine\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

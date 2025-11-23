@@ -4,7 +4,7 @@
 
 
 
-# Renyul Game Engine
+# Renboko Game Engine
 
 >A hobbyist 2D game engine built on MonoGame, with a simple demo game and a focus on learning, tinkering, and having fun.
 
@@ -12,7 +12,7 @@
 
 ## What is this?
 
-Renyul Game Engine is a modular, service-based 2D game engine for .NET 8 and MonoGame 3.8.4. It comes with a small demo game to show how things work. The code and comments are written in a casual, hobbyist style—so don't expect enterprise stuff here!
+Renboko Game Engine is a modular, service-based 2D game engine for .NET 8 and MonoGame 3.8.4. It comes with a small demo game to show how things work. The code and comments are written in a casual, hobbyist style—so don't expect enterprise stuff here!
 
 ---
 
@@ -32,7 +32,7 @@ Renyul Game Engine is a modular, service-based 2D game engine for .NET 8 and Mon
 
 1. **Build everything:**
     ```sh
-    dotnet build RenyulWorkspace.sln
+    dotnet build RenbokoWorkspace.sln
     ```
 2. **Run the demo game:**
     ```sh
@@ -58,7 +58,7 @@ Renyul Game Engine is a modular, service-based 2D game engine for .NET 8 and Mon
 This project is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ```
-Renyul Game Engine
+Renboko Game Engine
 Copyright (C) 2025  TawhidBinOmar
 
 This program is free software: you can redistribute it and/or modify

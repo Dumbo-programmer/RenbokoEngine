@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using RenyulEngine.Graphics;
-using RenyulEngine.Input;
-using RenyulEngine.Core;
+using RenbokoEngine.Graphics;
+using RenbokoEngine.Input;
+using RenbokoEngine.Core;
 
-namespace RenyulEngine.UI
+namespace RenbokoEngine.UI
 {
     /// <summary>
     /// Simple dropdown. Click to open list; clicking an item selects it.

@@ -2,13 +2,13 @@
     <img src="../RYENG.png" alt="RYENG" width="320"/>
 </div>
 
-# DemoGame for Renyul Game Engine
+# DemoGame for Renboko Game Engine
 
 ## Building and Running the Game
 
 1. **Build the solution:**
     ```sh
-    dotnet build RenyulWorkspace.sln
+    dotnet build RenbokoWorkspace.sln
     ```
 2. **Run the demo game:**
     ```sh
@@ -20,7 +20,7 @@
 
 ---
 
-This document explains the structure and code of the included `DemoGame` project, which serves as a practical example of how to use the Renyul Game Engine for a simple 2D game.
+This document explains the structure and code of the included `DemoGame` project, which serves as a practical example of how to use the Renboko Game Engine for a simple 2D game.
 
 ---
 
@@ -37,7 +37,7 @@ This document explains the structure and code of the included `DemoGame` project
 ---
 
 ## Overview
-The DemoGame is a minimal but complete game built with the Renyul Game Engine. It demonstrates scene management, input handling, sprite rendering, UI, and basic collision logic.
+The DemoGame is a minimal but complete game built with the Renboko Game Engine. It demonstrates scene management, input handling, sprite rendering, UI, and basic collision logic.
 
 ---
 
@@ -157,10 +157,10 @@ public override void Update() {
 ---
 
 ## Running the Demo
-1. Build the solution: `dotnet build RenyulWorkspace.sln`
+1. Build the solution: `dotnet build RenbokoWorkspace.sln`
 2. Run the demo: `dotnet run --project DemoGame/DemoGame.csproj`
 3. Use the UI and keyboard to interact with the demo.
 
 ---
 
-For more details, see the main [Renyul Game Engine Documentation](./README.md).
+For more details, see the main [Renboko Game Engine Documentation](./README.md).

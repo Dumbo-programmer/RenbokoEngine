@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace RenyulEngine.Physics
+namespace RenbokoEngine.Physics
 {
     /// <summary>
     /// Collision information for physics resolution.
