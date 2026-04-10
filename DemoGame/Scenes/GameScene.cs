@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -25,15 +26,16 @@ namespace DemoGame
 
         private int _screenWidth = 1280;
         private int _screenHeight = 720;
-        private float _groundY = 500f;
+        // _floorY is the y-coordinate of the ground baseline (where sprites' bottoms should rest)
+        private float _floorY = 500f;
 
         private float _score = 0f;
         private bool _isGameOver = false;
 
         // Tunables
-        private const float RunSpeed = 360f; // world scroll speed (px/s)
-        private const float Gravity = 1600f; // px/s^2
-        private const float JumpVelocity = -650f; // initial jump velocity
+        private const float RunSpeed = 320f; // world scroll speed (px/s)
+        private const float Gravity = 1200f; // px/s^2 (reduced to allow higher, longer jumps)
+        private const float JumpVelocity = -900f; // initial jump velocity (stronger jump)
 
         protected override void Start()
         {
@@ -45,10 +47,18 @@ namespace DemoGame
             // Screen / ground setup
             _screenWidth = 1280;
             _screenHeight = 720;
-            _groundY = _screenHeight - (_playerSprite?.Texture.Height ?? 32) - 40;
 
-            // Player start (fixed X, ground Y)
-            _playerPos = new Vector2(200, _groundY);
+            // Ground baseline: position measured in pixels from top of screen.
+            // Increase the bottom margin to raise the standing line.
+            int bottomMargin = 120;
+            _floorY = _screenHeight - bottomMargin;
+
+            // Player start (top-left Y so bottom aligns with _floorY)
+            int playerH = _playerSprite?.Texture.Height ?? 32;
+            _playerPos = new Vector2(200, _floorY - playerH);
+
+            // Debug: record computed floor and player start position
+            try { File.AppendAllText("renboko_debug.log", $"GameScene.Start floorY={_floorY}, playerStartY={_playerPos.Y}\n"); } catch { }
             _verticalVelocity = 0f;
             _isGrounded = true;
 
@@ -85,9 +95,10 @@ namespace DemoGame
             // Apply gravity
             _verticalVelocity += Gravity * dt;
             _playerPos.Y += _verticalVelocity * dt;
-            if (_playerPos.Y >= _groundY)
+            int playerH = _playerSprite?.Texture.Height ?? 32;
+            if (_playerPos.Y + playerH >= _floorY)
             {
-                _playerPos.Y = _groundY;
+                _playerPos.Y = _floorY - playerH;
                 _verticalVelocity = 0f;
                 _isGrounded = true;
             }
@@ -106,7 +117,8 @@ namespace DemoGame
             if (_spawnTimer <= 0f)
             {
                 float spawnX = _screenWidth + _rng.Next(50, 220);
-                var obstaclePos = new Vector2(spawnX, _groundY);
+                int obsH = _obstacleSprite?.Texture.Height ?? 16;
+                var obstaclePos = new Vector2(spawnX, _floorY - obsH);
                 _obstacles.Add(obstaclePos);
                 _spawnTimer = NextSpawnInterval();
             }
