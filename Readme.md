@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="RYENG.png" alt="RYENG" width="320"/>
+    <img src="RY.png" alt="RYENG" width="320"/>
 </div>
 
 
