@@ -7,15 +7,27 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      NUGET_PACKAGES: D:\\a\\_nuget
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare short NuGet packages path
+        run: |
+          if (!(Test-Path -Path 'D:\\a\\_nuget')) { New-Item -ItemType Directory -Path 'D:\\a\\_nuget' | Out-Null }
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
+      - name: Dotnet info
+        run: |
+          dotnet --info
+          dotnet nuget list source
       - name: Restore
-        run: dotnet restore MainEngine/RenbokoWorkspace.sln
+        run: |
+          dotnet nuget locals all --clear
+          dotnet restore MainEngine/RenbokoWorkspace.sln
+          dotnet restore DemoGame/DemoGame.csproj
       - name: Build
         run: dotnet build MainEngine/RenbokoWorkspace.sln --configuration Release --no-restore
       - name: Run DemoGame (smoke)
-        run: dotnet build DemoGame/DemoGame.csproj --configuration Release --no-restore
+        run: dotnet build DemoGame/DemoGame.csproj --configuration Release
