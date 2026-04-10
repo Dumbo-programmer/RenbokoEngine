@@ -353,39 +353,20 @@ if (ed.Audio != null && !string.IsNullOrWhiteSpace(ed.Audio.ClipPath))
     {
         public static Microsoft.Xna.Framework.Content.ContentManager? GetContent()
         {
-            // Return ContentManager if you keep a global reference somewhere.
-            // For now, we try to get it via Renderer2D's internal Content field using reflection (if present).
-            try
-            {
-                var renderer = ServiceLocator.Get<Renderer2D>();
-                var field = typeof(Renderer2D).GetField("_content", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                if (field != null) return (Microsoft.Xna.Framework.Content.ContentManager?)field.GetValue(renderer);
-            }
-            catch { }
+            // Prefer AssetManager usage rather than reflection. Content access via Renderer2D is not guaranteed.
             return null;
         }
 
         public static Microsoft.Xna.Framework.Graphics.Texture2D LoadTexture(string path)
         {
-            var renderer = ServiceLocator.Get<Renderer2D>();
-            return renderer.LoadTexture(path);
+            // Use central AssetManager which provides file fallback and caching.
+            return RenbokoEngine.Assets.AssetManager.AcquireTexture(path);
         }
 
         public static Microsoft.Xna.Framework.Audio.SoundEffect LoadSoundEffect(string path)
         {
-            try
-            {
-                var field = typeof(Renderer2D).GetField("_content", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                var renderer = ServiceLocator.Get<Renderer2D>();
-                var content = (Microsoft.Xna.Framework.Content.ContentManager?)field.GetValue(renderer);
-                if (content != null)
-                {
-                    return content.Load<Microsoft.Xna.Framework.Audio.SoundEffect>(path);
-                }
-            }
-            catch { }
-
-            throw new InvalidOperationException("Could not load sound via ContentManager. Hook AssetManagerHelper.LoadSoundEffect to your audio/content loader.");
+            // Use AssetManager to acquire sound. Let it throw if not available so callers can handle.
+            return RenbokoEngine.Assets.AssetManager.AcquireSound(path);
         }
     }
 }

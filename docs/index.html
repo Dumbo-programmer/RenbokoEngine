@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Renboko Engine — Docs</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:20px">
+        <div style="display:flex;gap:16px;align-items:center">
+          <img src="../RYENG.png" alt="Renboko" style="height:56px;opacity:.95">
+          <div>
+            <h1 style="margin:0">Renboko Game Engine</h1>
+            <div style="color:#93a5b8">A lightweight 2D engine built on MonoGame • Demo included</div>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./engine.html">Engine Docs</a></li>
+            <li><a href="./getting-started.html">Getting Started</a></li>
+            <li><a href="./api.html">API & Examples</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section style="margin-top:20px">
+      <h2>Quick Start</h2>
+      <p>Clone the repo, build the engine, and run the demo:</p>
+      <pre><code>dotnet build MainEngine\RenbokoWorkspace.sln
+dotnet run --project DemoGame/DemoGame.csproj</code></pre>
+
+      <h2>Why Renboko?</h2>
+      <p>Renboko is a modular, service-oriented 2D engine focused on clarity and learnability. It includes rendering, input, physics, UI, audio, and an asset manager.</p>
+
+      <h2>Contents</h2>
+      <ul>
+        <li>Engine core: scene management, services, renderer, physics.</li>
+        <li>DemoGame: small playable demo showing common use cases.</li>
+        <li>Assets & content pipeline: easy helpers for file fallback.</li>
+      </ul>
+
+      <h2>Next steps</h2>
+      <ul>
+        <li><a href="./getting-started.html">Getting Started</a> — build & run locally</li>
+        <li><a href="./engine.html">Engine Docs</a> — architecture and how to use systems</li>
+        <li><a href="./api.html">API & Examples</a> — code examples and common patterns</li>
+      </ul>
+    </section>
+
+    <hr style="margin:28px 0;border:none;border-top:1px solid rgba(255,255,255,0.04)">
+
+    <section>
+      <h2>Status</h2>
+      <p>Build: <strong>Clean</strong> (no warnings). I fixed several nullability issues and improved asset-loading helpers.</p>
+      <p>If you want me to continue with formatting, adding unit tests, or CI configuration, tell me which you'd prefer next.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© Renboko Project — Docs generated</div>
+  </footer>
+</body>
+</html>

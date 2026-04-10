@@ -1,0 +1,21 @@
+name: .NET Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore MainEngine/RenbokoWorkspace.sln
+      - name: Build
+        run: dotnet build MainEngine/RenbokoWorkspace.sln --configuration Release --no-restore
+      - name: Run DemoGame (smoke)
+        run: dotnet build DemoGame/DemoGame.csproj --configuration Release --no-restore

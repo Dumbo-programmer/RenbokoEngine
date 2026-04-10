@@ -31,7 +31,7 @@ namespace RenbokoEngine.Assets
         private static readonly Dictionary<string, int> _sfxRef = new(StringComparer.OrdinalIgnoreCase);
 
         // concurrent cache for async-from-stream loads
-        private static readonly ConcurrentDictionary<string, Task<Texture2D>> _asyncTextureLoads = new();
+        private static readonly ConcurrentDictionary<string, Task<Texture2D>?> _asyncTextureLoads = new();
 
         /// <summary>
         /// Initialize AssetManager with MonoGame ContentManager and GraphicsDevice.
@@ -76,9 +76,9 @@ namespace RenbokoEngine.Assets
             var fromFile = LoadTextureFromFile(path);
             if (fromFile == null) throw new FileNotFoundException($"Texture not found: {path}");
 
-            _textures[path] = fromFile;
+            _textures[path] = fromFile!;
             _textureRef[path] = 1;
-            return fromFile;
+            return fromFile!;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace RenbokoEngine.Assets
             }
 
             // If an async load is already in progress, return that Task
-            if (_asyncTextureLoads.TryGetValue(path, out var inFlight)) return inFlight;
+            if (_asyncTextureLoads.TryGetValue(path, out var inFlight) && inFlight != null) return inFlight;
 
             // Create a task that will try to load using file fallback (Texture2D.FromStream).
             var t = Task.Run(() =>
@@ -116,14 +116,15 @@ namespace RenbokoEngine.Assets
                     {
                         _textures[path] = tex;
                         _textureRef[path] = 1;
-                        return _textures[path];
+                        return tex;
                     }
                     else
                     {
                         // another thread inserted same texture
+                        var existing = _textures[path];
                         tex.Dispose();
                         _textureRef[path]++;
-                        return _textures[path];
+                        return existing;
                     }
                 }
             });
@@ -131,7 +132,7 @@ namespace RenbokoEngine.Assets
             // store the in-flight task
             _asyncTextureLoads[path] = t;
             // remove the entry when done (continuation)
-            t.ContinueWith(_ => _asyncTextureLoads.TryRemove(path, out _));
+            t.ContinueWith(_ => { _asyncTextureLoads.TryRemove(path, out Task<Texture2D>? _removed); });
             return t;
         }
 

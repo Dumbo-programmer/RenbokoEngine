@@ -7,7 +7,7 @@ namespace RenbokoEngine.Physics
     /// </summary>
     public abstract class Collider2D
     {
-        public Rigidbody2D Rigidbody { get; private set; }
+        public Rigidbody2D? Rigidbody { get; private set; }
         public AABB Bounds { get; protected set; }
 
         // Restitution reads from Rigidbody if attached, else defaults to 0.5
@@ -19,6 +19,6 @@ namespace RenbokoEngine.Physics
         }
 
         public abstract void UpdateBounds(Vector2 position);
-        public abstract bool Intersects(Collider2D other, out Collision collision);
+        public abstract bool Intersects(Collider2D other, out Collision? collision);
     }
 }

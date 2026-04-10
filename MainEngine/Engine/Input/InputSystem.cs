@@ -15,7 +15,7 @@ namespace RenbokoEngine.Input
                 _devices.Add(device);
         }
 
-        public T GetDevice<T>() where T : class, IInputDevice
+        public T? GetDevice<T>() where T : class, IInputDevice
         {
             foreach (var d in _devices)
                 if (d is T typed) return typed;

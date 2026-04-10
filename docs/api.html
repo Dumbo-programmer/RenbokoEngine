@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Renboko Engine — API & Examples</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <div class="container"><a href="./index.html"><h1 style="margin:0">API & Examples</h1></a></div>
+  </header>
+
+  <main class="container">
+    <h2>Core APIs</h2>
+    <h3>ServiceLocator</h3>
+    <pre><code>// Register
+ServiceLocator.Register(new Time());
+// Get
+var time = ServiceLocator.Get<Time>();</code></pre>
+
+    <h3>AssetManager</h3>
+    <pre><code>var tex = AssetManager.AcquireTexture("player.png");
+var font = AssetManager.AcquireFont("DefaultFont");
+var sfx = AssetManager.AcquireSound("jump.wav");</code></pre>
+
+    <h3>Scene Example</h3>
+    <pre><code>public class GameScene : Scene {
+  private Sprite? player;
+  protected override void Start() {
+    player = new Sprite(AssetManager.AcquireTexture("player.png"));
+  }
+  public override void Update() {
+    var input = ServiceLocator.Get<InputSystem>();
+    var keyboard = input.GetDevice<KeyboardDevice>();
+    if (keyboard?.GetKey(Keys.Right) == true) { /* move */ }
+  }
+  public override void Render(Renderer2D renderer) {
+    player?.Draw(renderer, new Vector2(100,100));
+  }
+}
+</code></pre>
+
+    <h2>Demo</h2>
+    <p>Look at the `DemoGame` project for an end-to-end example of how scenes, assets, and UI are used.</p>
+  </main>
+
+  <footer>
+    <div class="container">© Renboko Project — API & Examples</div>
+  </footer>
+</body>
+</html>

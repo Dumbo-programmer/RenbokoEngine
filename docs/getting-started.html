@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Renboko Engine — Getting Started</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <div class="container"><a href="./index.html"><h1 style="margin:0">Getting Started</h1></a></div>
+  </header>
+
+  <main class="container">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>.NET 8 SDK</li>
+      <li>MonoGame 3.8 SDK/runtime</li>
+      <li>Optional: Visual Studio 2022/2023, VS Code</li>
+    </ul>
+
+    <h2>Build and Run</h2>
+    <pre><code>dotnet build MainEngine\RenbokoWorkspace.sln
+dotnet run --project DemoGame/DemoGame.csproj</code></pre>
+
+    <h2>Common issues</h2>
+    <ul>
+      <li>If you see ContentManager load errors, ensure the Content pipeline assets were built (MGCB) or use file-based fallbacks.</li>
+      <li>Registering services order matters: `Renderer2D` and `AssetManager.Init` should be available before scenes try to load assets.</li>
+    </ul>
+  </main>
+
+  <footer>
+    <div class="container">© Renboko Project — Getting Started</div>
+  </footer>
+</body>
+</html>

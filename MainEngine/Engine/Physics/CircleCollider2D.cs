@@ -23,9 +23,9 @@ namespace RenbokoEngine.Physics
             Bounds = new AABB(position - new Microsoft.Xna.Framework.Vector2(Radius), position + new Microsoft.Xna.Framework.Vector2(Radius));
         }
 
-        public override bool Intersects(Collider2D other, out Collision collision)
+        public override bool Intersects(Collider2D other, out Collision? collision)
         {
-            collision = default;
+            collision = null;
 
             if (other is CircleCollider2D circle)
                 return CircleCircleIntersection(this, circle, out collision);
@@ -36,9 +36,9 @@ namespace RenbokoEngine.Physics
             return false;
         }
 
-        private bool CircleCircleIntersection(CircleCollider2D a, CircleCollider2D b, out Collision collision)
+        private bool CircleCircleIntersection(CircleCollider2D a, CircleCollider2D b, out Collision? collision)
         {
-            collision = default;
+            collision = null;
 
             Microsoft.Xna.Framework.Vector2 diff = b.Center - a.Center;
             float distSq = diff.LengthSquared();

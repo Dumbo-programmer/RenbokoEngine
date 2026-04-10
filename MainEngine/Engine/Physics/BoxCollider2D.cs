@@ -23,10 +23,9 @@ namespace RenbokoEngine.Physics
             Bounds = new AABB(position - halfSize, position + halfSize);
         }
 
-        public override bool Intersects(Collider2D other, out Collision collision)
+        public override bool Intersects(Collider2D other, out Collision? collision)
         {
-            collision = default;
-
+            collision = null;
             if (other is BoxCollider2D box)
                 return BoxBoxIntersection(this, box, out collision);
 
@@ -36,9 +35,9 @@ namespace RenbokoEngine.Physics
             return false;
         }
 
-        private bool BoxBoxIntersection(BoxCollider2D a, BoxCollider2D b, out Collision collision)
+        private bool BoxBoxIntersection(BoxCollider2D a, BoxCollider2D b, out Collision? collision)
         {
-            collision = default;
+            collision = null;
             if (!a.Bounds.Intersects(b.Bounds))
                 return false;
 
@@ -62,9 +61,9 @@ namespace RenbokoEngine.Physics
             return true;
         }
 
-        private bool BoxCircleIntersection(BoxCollider2D box, CircleCollider2D circle, out Collision collision)
+        private bool BoxCircleIntersection(BoxCollider2D box, CircleCollider2D circle, out Collision? collision)
         {
-            collision = default;
+            collision = null;
 
             Microsoft.Xna.Framework.Vector2 boxCenter = box.Bounds.GetCenter();
             Microsoft.Xna.Framework.Vector2 halfSize = box.Size * 0.5f;

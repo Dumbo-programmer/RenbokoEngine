@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/RenbokoWorkspace.sln"
+        "${workspaceFolder}/MainEngine/RenbokoWorkspace.sln"
       ],
       "group": {
         "kind": "build",

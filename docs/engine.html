@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Renboko Engine — Engine Docs</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="./index.html" style="text-decoration:none;color:inherit"><h1 style="margin:0">Engine Docs</h1></a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Overview</h2>
+    <p>Renboko provides a small, pragmatic set of systems useful for 2D games:</p>
+    <ul>
+      <li><strong>Service Locator</strong> — register global services like `InputSystem`, `Renderer2D`, `PhysicsWorld`, and `AudioSystem` via `ServiceLocator`.</li>
+      <li><strong>Scene System</strong> — `Scene` base type with lifecycle hooks: `Start`, `Update`, `FixedUpdate`, `Render`, and `OnUnload`.</li>
+      <li><strong>Renderer</strong> — `Renderer2D` provides basic sprite drawing and text rendering with a `Camera2D` transform.</li>
+      <li><strong>Asset Manager</strong> — `AssetManager` supports content pipeline loads and file fallback with caching and reference counting.</li>
+      <li><strong>Physics</strong> — basic `Rigidbody2D`, `BoxCollider2D`, and `CircleCollider2D` with simple collision resolution.</li>
+      <li><strong>UI</strong> — retained-mode UI elements (`UIButton`, `UISlider`, `UILabel`, etc.).</li>
+    </ul>
+
+    <h2>Initialization</h2>
+    <p>Typical initialization happens inside `EngineGame.Initialize()` where systems are registered and `AssetManager.Init` is called.</p>
+
+    <h2>Asset Loading</h2>
+    <p>Use `AssetManager.AcquireTexture`, `AcquireFont`, `AcquireSound` for stable, cached loads. The engine tries ContentManager loads first, then falls back to filesystem streaming.</p>
+
+    <h2>Notes & Improvements I made</h2>
+    <ul>
+      <li>Fixed solution header so `dotnet build` works reliably.</li>
+      <li>Resolved a number of nullability warnings and unsafe reflection usage in `SceneLoader`.</li>
+      <li>Reworked `AssetManager` async texture cache to avoid subtle nullability issues.</li>
+    </ul>
+
+    <h2>Where to look next</h2>
+    <ul>
+      <li>`MainEngine/Engine` — core systems and implementations.</li>
+      <li>`DemoGame` — example game and entry point.</li>
+      <li>`MainEngine/Docs/README.md` — the original markdown docs with examples.</li>
+    </ul>
+  </main>
+
+  <footer>
+    <div class="container">© Renboko Project — Engine Docs</div>
+  </footer>
+</body>
+</html>

@@ -60,8 +60,10 @@ namespace RenbokoEngine.Audio
         /// <summary>
         /// Get an existing audio group, null if not found.
         /// </summary>
-        public static AudioGroup GetGroup(string name) =>
-            groups.ContainsKey(name) ? groups[name] : null;
+        public static AudioGroup? GetGroup(string name)
+        {
+            return groups.TryGetValue(name, out var g) ? g : null;
+        }
 
         public static void UpdateVolumes()
         {
