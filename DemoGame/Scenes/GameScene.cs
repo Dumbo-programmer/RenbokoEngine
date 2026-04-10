@@ -21,7 +21,7 @@ namespace DemoGame
         private readonly List<Vector2> _obstacles = new();
         private Sprite? _obstacleSprite;
 
-        private float _spawnTimer;
+        private float _distanceUntilNextSpawn;
         private readonly Random _rng = new();
 
         private int _screenWidth = 1280;
@@ -62,8 +62,9 @@ namespace DemoGame
             _verticalVelocity = 0f;
             _isGrounded = true;
 
-            // Spawn first obstacle quickly
-            _spawnTimer = NextSpawnInterval();
+            // Spawn system: distance-based so spacing is deterministic and fair.
+            _obstacles.Clear();
+            _distanceUntilNextSpawn = NextSpawnGapDistance();
             _score = 0f;
             _isGameOver = false;
         }
@@ -112,15 +113,15 @@ namespace DemoGame
                 if (p.X < -200) _obstacles.RemoveAt(i);
             }
 
-            // Spawn logic
-            _spawnTimer -= dt;
-            if (_spawnTimer <= 0f)
+            // Spawn logic (distance-based): guarantees enough room to jump and land.
+            _distanceUntilNextSpawn -= RunSpeed * dt;
+            if (_distanceUntilNextSpawn <= 0f)
             {
                 float spawnX = _screenWidth + _rng.Next(50, 220);
                 int obsH = _obstacleSprite?.Texture.Height ?? 16;
                 var obstaclePos = new Vector2(spawnX, _floorY - obsH);
                 _obstacles.Add(obstaclePos);
-                _spawnTimer = NextSpawnInterval();
+                _distanceUntilNextSpawn = NextSpawnGapDistance();
             }
 
             // Collision check (AABB)
@@ -167,9 +168,18 @@ namespace DemoGame
             }
         }
 
-        private float NextSpawnInterval()
+        private float NextSpawnGapDistance()
         {
-            return (float)(_rng.NextDouble() * 1.4 + 0.8); // 0.8 - 2.2s
+            // Air time for a simple jump under constant gravity:
+            // t_air = (2 * |v0|) / g
+            float airTime = (2f * MathF.Abs(JumpVelocity)) / Gravity;
+            float jumpTravel = RunSpeed * airTime;
+
+            // Require a minimum post-jump landing buffer before next obstacle.
+            const float landingBufferPx = 260f;
+            const float randomExtraPx = 220f;
+
+            return jumpTravel + landingBufferPx + (float)_rng.NextDouble() * randomExtraPx;
         }
     }
 }

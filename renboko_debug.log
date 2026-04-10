@@ -63,3 +63,10 @@ MainMenuScene.Render called
 Start button clicked
 GameScene.Start floorY=600, playerStartY=301
 GameScene.Start floorY=600, playerStartY=301
+MainMenuScene.Start called
+Font loaded
+MainMenuScene.Render called
+Start button clicked
+GameScene.Start floorY=600, playerStartY=301
+GameScene.Start floorY=600, playerStartY=301
+GameScene.Start floorY=600, playerStartY=301
