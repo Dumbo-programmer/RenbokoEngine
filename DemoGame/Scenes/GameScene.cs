@@ -56,12 +56,10 @@ namespace DemoGame
 
         public override void Render(Renderer2D renderer)
         {
-            renderer.Begin();
             if (playerSprite != null)
                 playerSprite.Draw(renderer, playerPosition);
             if (coinSprite != null)
                 coinSprite.Draw(renderer, coinPosition);
-            renderer.End();
         }
     }
 }
