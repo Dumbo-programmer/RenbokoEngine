@@ -49,7 +49,7 @@ namespace DemoGame
             Sprite? sprite = null;
             try
             {
-                var tex = RenbokoEngine.Assets.AssetManager.AcquireTexture("player.png");
+                var tex = RenbokoEngine.Assets.AssetManager.AcquireTexture("DemoGame/Content/player.png");
                 sprite = new Sprite(tex);
             }
             catch { /* ignore missing texture; we'll still show physics */ }
@@ -77,7 +77,7 @@ namespace DemoGame
                     // Attempt to draw a fallback texture if available
                     try
                     {
-                        var tex = RenbokoEngine.Assets.AssetManager.AcquireTexture("player.png");
+                        var tex = RenbokoEngine.Assets.AssetManager.AcquireTexture("DemoGame/Content/player.png");
                         renderer.Draw(tex, new Vector2(e.Body.Position.X, e.Body.Position.Y), null, Color.White, 0f, Vector2.Zero, Vector2.One);
                     }
                     catch { }

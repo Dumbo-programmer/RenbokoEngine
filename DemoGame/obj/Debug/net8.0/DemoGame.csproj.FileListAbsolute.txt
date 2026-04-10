@@ -66,3 +66,9 @@ B:\Development\RenbokoEngine\DemoGame\obj\Debug\net8.0\refint\DemoGame.dll
 B:\Development\RenbokoEngine\DemoGame\obj\Debug\net8.0\DemoGame.pdb
 B:\Development\RenbokoEngine\DemoGame\obj\Debug\net8.0\DemoGame.genruntimeconfig.cache
 B:\Development\RenbokoEngine\DemoGame\obj\Debug\net8.0\ref\DemoGame.dll
+B:\Development\RenbokoEngine\DemoGame\bin\Debug\net8.0\Content\coin.png
+B:\Development\RenbokoEngine\DemoGame\bin\Debug\net8.0\Content\Content.mgcb
+B:\Development\RenbokoEngine\DemoGame\bin\Debug\net8.0\Content\Default.spritefont
+B:\Development\RenbokoEngine\DemoGame\bin\Debug\net8.0\Content\Default.ttf
+B:\Development\RenbokoEngine\DemoGame\bin\Debug\net8.0\Content\DefaultFont.xnb
+B:\Development\RenbokoEngine\DemoGame\bin\Debug\net8.0\Content\player.png

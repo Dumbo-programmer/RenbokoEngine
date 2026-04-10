@@ -16,4 +16,11 @@
 <ItemGroup>
   <MonoGameContentReference Include="Content\\Content.mgcb" />
 </ItemGroup>
+<ItemGroup>
+  <!-- Ensure raw content files (xnb, png, spritefont, etc.) are copied to the build output
+       so ContentManager can load them at runtime even if MGCB didn't run in this build. -->
+  <Content Include="Content\\**\\*.*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
 </Project>

@@ -1,65 +1,163 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using RenbokoEngine.Scenes;
-using RenbokoEngine.Physics;
 using RenbokoEngine.Graphics;
 using RenbokoEngine.Core;
-using Microsoft.Xna.Framework;
 
 namespace DemoGame
 {
+    // A small, self-contained endless-runner implementation using existing assets.
     public class GameScene : Scene
     {
-    private Rigidbody2D? player;
-    private Sprite? playerSprite;
-    private Sprite? coinSprite;
-    private Vector2 playerPosition = new Vector2(100, 100);
-    private Vector2 coinPosition = new Vector2(400, 300);
+        private Sprite? _playerSprite;
+        private Vector2 _playerPos;
+        private float _verticalVelocity;
+        private bool _isGrounded;
 
-        public GameScene() {}
+        private readonly List<Vector2> _obstacles = new();
+        private Sprite? _obstacleSprite;
+
+        private float _spawnTimer;
+        private readonly Random _rng = new();
+
+        private int _screenWidth = 1280;
+        private int _screenHeight = 720;
+        private float _groundY = 500f;
+
+        private float _score = 0f;
+        private bool _isGameOver = false;
+
+        // Tunables
+        private const float RunSpeed = 360f; // world scroll speed (px/s)
+        private const float Gravity = 1600f; // px/s^2
+        private const float JumpVelocity = -650f; // initial jump velocity
 
         protected override void Start()
         {
-            // Player physics body
-            player = new Rigidbody2D(new BoxCollider2D(new Vector2(32, 32)));
-            player.Position = playerPosition;
+            // Load sprites
+            var playerTex = RenbokoEngine.Assets.AssetManager.AcquireTexture("DemoGame/Content/player.png");
+            _playerSprite = new Sprite(playerTex);
+            _obstacleSprite = new Sprite(RenbokoEngine.Assets.AssetManager.AcquireTexture("DemoGame/Content/coin.png"));
 
-            // Player sprite
-            var playerTex = RenbokoEngine.Assets.AssetManager.AcquireTexture("player.png");
-            playerSprite = new Sprite(playerTex);
+            // Screen / ground setup
+            _screenWidth = 1280;
+            _screenHeight = 720;
+            _groundY = _screenHeight - (_playerSprite?.Texture.Height ?? 32) - 40;
 
-            // Coin sprite
-            var coinTex = RenbokoEngine.Assets.AssetManager.AcquireTexture("coin.png");
-            coinSprite = new Sprite(coinTex);
+            // Player start (fixed X, ground Y)
+            _playerPos = new Vector2(200, _groundY);
+            _verticalVelocity = 0f;
+            _isGrounded = true;
+
+            // Spawn first obstacle quickly
+            _spawnTimer = NextSpawnInterval();
+            _score = 0f;
+            _isGameOver = false;
         }
 
         public override void Update()
         {
-            // Player input
-
             var input = ServiceLocator.Get<RenbokoEngine.Input.InputSystem>();
             var keyboard = input.GetDevice<RenbokoEngine.Input.KeyboardDevice>();
-            var time = ServiceLocator.Get<RenbokoEngine.Core.Time>();
-            if (keyboard != null && time != null)
+            var time = ServiceLocator.Get<Time>();
+            if (time == null) return;
+
+            float dt = (float)time.DeltaTime;
+
+            if (_isGameOver)
             {
-                if (keyboard.GetKey(Microsoft.Xna.Framework.Input.Keys.Right))
-                    playerPosition.X += 200 * time.DeltaTime;
-                if (keyboard.GetKey(Microsoft.Xna.Framework.Input.Keys.Left))
-                    playerPosition.X -= 200 * time.DeltaTime;
+                // Restart on Enter
+                if (keyboard?.GetKeyDown(Keys.Enter) == true || keyboard?.GetKeyDown(Keys.Space) == true)
+                    SceneManager.Load(new GameScene());
+                return;
             }
 
-            // Simple collision with coin
-            if (Vector2.Distance(playerPosition, coinPosition) < 32)
+            // Jump
+            if (_isGrounded && keyboard != null && (keyboard.GetKeyDown(Keys.Space) || keyboard.GetKeyDown(Keys.Up)))
             {
-                // "Collect" coin
-                coinPosition = new Vector2(-100, -100); // hide
+                _verticalVelocity = JumpVelocity;
+                _isGrounded = false;
             }
+
+            // Apply gravity
+            _verticalVelocity += Gravity * dt;
+            _playerPos.Y += _verticalVelocity * dt;
+            if (_playerPos.Y >= _groundY)
+            {
+                _playerPos.Y = _groundY;
+                _verticalVelocity = 0f;
+                _isGrounded = true;
+            }
+
+            // Move obstacles (world scroll)
+            for (int i = _obstacles.Count - 1; i >= 0; i--)
+            {
+                var p = _obstacles[i];
+                p.X -= RunSpeed * dt;
+                _obstacles[i] = p;
+                if (p.X < -200) _obstacles.RemoveAt(i);
+            }
+
+            // Spawn logic
+            _spawnTimer -= dt;
+            if (_spawnTimer <= 0f)
+            {
+                float spawnX = _screenWidth + _rng.Next(50, 220);
+                var obstaclePos = new Vector2(spawnX, _groundY);
+                _obstacles.Add(obstaclePos);
+                _spawnTimer = NextSpawnInterval();
+            }
+
+            // Collision check (AABB)
+            if (_playerSprite != null && _obstacleSprite != null)
+            {
+                var playerRect = new Rectangle((int)_playerPos.X, (int)_playerPos.Y, _playerSprite.Texture.Width, _playerSprite.Texture.Height);
+                foreach (var o in _obstacles)
+                {
+                    var obsRect = new Rectangle((int)o.X, (int)o.Y, _obstacleSprite.Texture.Width, _obstacleSprite.Texture.Height);
+                    if (playerRect.Intersects(obsRect))
+                    {
+                        _isGameOver = true;
+                        break;
+                    }
+                }
+            }
+
+            // Update score (distance-based)
+            _score += RunSpeed * dt * 0.1f;
         }
 
         public override void Render(Renderer2D renderer)
         {
-            if (playerSprite != null)
-                playerSprite.Draw(renderer, playerPosition);
-            if (coinSprite != null)
-                coinSprite.Draw(renderer, coinPosition);
+            // Draw player and obstacles
+            if (_playerSprite != null) _playerSprite.Draw(renderer, _playerPos);
+            if (_obstacleSprite != null)
+            {
+                foreach (var o in _obstacles) _obstacleSprite.Draw(renderer, o);
+            }
+
+            // HUD: score and game over
+            SpriteFont? font = null;
+            try { font = renderer.LoadFont("DefaultFont"); } catch { font = null; }
+
+            if (font != null)
+            {
+                renderer.DrawString(font, $"Score: {(int)_score}", new Vector2(16, 16), Microsoft.Xna.Framework.Color.White);
+                if (_isGameOver)
+                {
+                    var msg = "GAME OVER - Press Enter to Restart";
+                    var size = font.MeasureString(msg);
+                    renderer.DrawString(font, msg, new Vector2(_screenWidth / 2f - size.X / 2f, _screenHeight / 2f - size.Y / 2f), Microsoft.Xna.Framework.Color.Yellow);
+                }
+            }
+        }
+
+        private float NextSpawnInterval()
+        {
+            return (float)(_rng.NextDouble() * 1.4 + 0.8); // 0.8 - 2.2s
         }
     }
 }

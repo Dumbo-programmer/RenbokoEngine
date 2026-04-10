@@ -170,6 +170,24 @@ namespace RenbokoEngine.Assets
                 }
             }
 
+            if (!File.Exists(filePath))
+            {
+                // As a fallback, try to locate the file anywhere under the current working directory
+                try
+                {
+                    var fileName = Path.GetFileName(path);
+                    if (!string.IsNullOrEmpty(fileName))
+                    {
+                        var found = Directory.GetFiles(Directory.GetCurrentDirectory(), fileName, SearchOption.AllDirectories);
+                        if (found != null && found.Length > 0)
+                        {
+                            filePath = found[0];
+                        }
+                    }
+                }
+                catch { }
+            }
+
             if (!File.Exists(filePath)) return null;
 
             using var fs = File.OpenRead(filePath);

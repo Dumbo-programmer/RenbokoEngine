@@ -15,34 +15,38 @@
 
   <main class="container">
     <h2>Overview</h2>
-    <p>Renboko provides a small, pragmatic set of systems useful for 2D games:</p>
+    <p>Renboko provides a concise set of systems for 2D games:</p>
     <ul>
-      <li><strong>Service Locator</strong> — register global services like `InputSystem`, `Renderer2D`, `PhysicsWorld`, and `AudioSystem` via `ServiceLocator`.</li>
-      <li><strong>Scene System</strong> — `Scene` base type with lifecycle hooks: `Start`, `Update`, `FixedUpdate`, `Render`, and `OnUnload`.</li>
-      <li><strong>Renderer</strong> — `Renderer2D` provides basic sprite drawing and text rendering with a `Camera2D` transform.</li>
-      <li><strong>Asset Manager</strong> — `AssetManager` supports content pipeline loads and file fallback with caching and reference counting.</li>
-      <li><strong>Physics</strong> — basic `Rigidbody2D`, `BoxCollider2D`, and `CircleCollider2D` with simple collision resolution.</li>
-      <li><strong>UI</strong> — retained-mode UI elements (`UIButton`, `UISlider`, `UILabel`, etc.).</li>
+      <li><strong>ServiceLocator</strong> — register and resolve global systems (InputSystem, Renderer2D, PhysicsWorld, AudioSystem).</li>
+      <li><strong>Scene system</strong> — `Scene` with lifecycle hooks: `Start`, `Update`, `FixedUpdate`, `Render`, `OnUnload`.</li>
+      <li><strong>Renderer2D</strong> — sprite batching, `DrawString`, and `Camera2D` transforms.</li>
+      <li><strong>AssetManager</strong> — `AcquireTexture`, `AcquireFont`, `AcquireSound` with ContentManager-first, filesystem-fallback behavior and reference counting.</li>
+      <li><strong>Physics</strong> — `Rigidbody2D`, `BoxCollider2D`, `CircleCollider2D` and simple collision resolution.</li>
+      <li><strong>UI</strong> — retained-mode UI elements (`UIButton`, `UILabel`, `UISlider`, etc.).</li>
     </ul>
 
     <h2>Initialization</h2>
-    <p>Typical initialization happens inside `EngineGame.Initialize()` where systems are registered and `AssetManager.Init` is called.</p>
+    <p>Register core services early in <code>EngineGame.Initialize()</code>. Recommended order:</p>
+    <pre><code>ServiceLocator.Register(new Renderer2D(graphicsDevice));
+ServiceLocator.Register(new InputSystem());
+AssetManager.Init(Content, GraphicsDevice);
+SceneManager.Load(new MainMenuScene());</code></pre>
 
-    <h2>Asset Loading</h2>
-    <p>Use `AssetManager.AcquireTexture`, `AcquireFont`, `AcquireSound` for stable, cached loads. The engine tries ContentManager loads first, then falls back to filesystem streaming.</p>
+    <h2>Asset loading</h2>
+    <p>Prefer <code>AssetManager.AcquireTexture("name.png")</code> for textures. For fonts, build .xnb files with MGCB and place them in <code>DemoGame/Content/</code> so <code>AcquireFont</code> or <code>Renderer2D.LoadFont</code> can load them reliably.</p>
 
-    <h2>Notes & Improvements I made</h2>
+    <h2>Recent fixes</h2>
     <ul>
-      <li>Fixed solution header so `dotnet build` works reliably.</li>
-      <li>Resolved a number of nullability warnings and unsafe reflection usage in `SceneLoader`.</li>
-      <li>Reworked `AssetManager` async texture cache to avoid subtle nullability issues.</li>
+      <li>Fixed malformed solution header that caused <code>dotnet build</code> to fail.</li>
+      <li>Removed unsafe reflection in <code>SceneLoader</code> and tightened nullability annotations.</li>
+      <li>Improved <code>AssetManager</code> texture loading with filesystem fallback and safer async cache handling.</li>
     </ul>
 
-    <h2>Where to look next</h2>
+    <h2>Where to look</h2>
     <ul>
-      <li>`MainEngine/Engine` — core systems and implementations.</li>
-      <li>`DemoGame` — example game and entry point.</li>
-      <li>`MainEngine/Docs/README.md` — the original markdown docs with examples.</li>
+      <li><a href="../MainEngine/Engine">MainEngine/Engine</a> — core systems implementation.</li>
+      <li><a href="./api.html">API & Examples</a> — common usage patterns and snippets.</li>
+      <li><a href="./getting-started.html">Getting Started</a> — build and run instructions.</li>
     </ul>
   </main>
 
