@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
@@ -44,6 +45,8 @@ namespace RenbokoEngine.Assets
         }
 
         #region Textures
+
+        private const string BuiltinTexturePrefix = "__builtin";
 
         /// <summary>
         /// Synchronous Acquire (load or increase ref count) a texture by asset name.
@@ -194,6 +197,241 @@ namespace RenbokoEngine.Assets
             // Texture2D.FromStream creates texture on the provided GraphicsDevice.
             var tex = Texture2D.FromStream(_graphicsDevice, fs);
             return tex;
+        }
+
+        /// <summary>
+        /// Acquire a built-in procedural texture that requires no external asset files.
+        /// Useful for quick prototyping and games that start without art.
+        /// </summary>
+        /// <param name="shape">Built-in primitive shape to generate.</param>
+        /// <param name="size">Texture width/height in pixels (minimum 1).</param>
+        /// <returns>Cached Texture2D instance.</returns>
+        public static Texture2D AcquireBuiltinTexture(BuiltinTextureShape shape, int size = 64)
+        {
+            if (size < 1) throw new ArgumentOutOfRangeException(nameof(size), "Size must be >= 1.");
+            if (_graphicsDevice == null) throw new InvalidOperationException("AssetManager not initialized with GraphicsDevice.");
+
+            var key = GetBuiltinTextureKey(shape, size);
+            if (_textures.TryGetValue(key, out var existing))
+            {
+                _textureRef[key]++;
+                return existing;
+            }
+
+            var texture = CreateBuiltinTexture(shape, size);
+            _textures[key] = texture;
+            _textureRef[key] = 1;
+            return texture;
+        }
+
+        /// <summary>
+        /// Release a previously acquired built-in texture.
+        /// </summary>
+        public static void ReleaseBuiltinTexture(BuiltinTextureShape shape, int size = 64)
+        {
+            if (size < 1) return;
+            ReleaseTexture(GetBuiltinTextureKey(shape, size));
+        }
+
+        private static string GetBuiltinTextureKey(BuiltinTextureShape shape, int size)
+            => $"{BuiltinTexturePrefix}:{shape}:{size}";
+
+        private static Texture2D CreateBuiltinTexture(BuiltinTextureShape shape, int size)
+        {
+            var texture = new Texture2D(_graphicsDevice!, size, size);
+            var pixels = new Color[size * size];
+
+            switch (shape)
+            {
+                case BuiltinTextureShape.Pixel:
+                case BuiltinTextureShape.Square:
+                case BuiltinTextureShape.Cube:
+                    FillSquare(pixels, size);
+                    break;
+                case BuiltinTextureShape.Circle:
+                    FillCircle(pixels, size);
+                    break;
+                case BuiltinTextureShape.Triangle:
+                    FillTriangle(pixels, size);
+                    break;
+                case BuiltinTextureShape.Diamond:
+                    FillDiamond(pixels, size);
+                    break;
+                case BuiltinTextureShape.Hexagon:
+                    FillHexagon(pixels, size);
+                    break;
+                case BuiltinTextureShape.Star:
+                    FillStar(pixels, size);
+                    break;
+                case BuiltinTextureShape.Saw:
+                    FillSaw(pixels, size);
+                    break;
+                default:
+                    FillSquare(pixels, size);
+                    break;
+            }
+
+            texture.SetData(pixels);
+            return texture;
+        }
+
+        private static void FillSquare(Color[] pixels, int size)
+        {
+            for (int i = 0; i < pixels.Length; i++)
+                pixels[i] = Color.White;
+        }
+
+        private static void FillCircle(Color[] pixels, int size)
+        {
+            float center = (size - 1) * 0.5f;
+            float radius = size * 0.5f;
+            float radiusSq = radius * radius;
+
+            for (int y = 0; y < size; y++)
+            {
+                float dy = y - center;
+                for (int x = 0; x < size; x++)
+                {
+                    float dx = x - center;
+                    bool inside = (dx * dx) + (dy * dy) <= radiusSq;
+                    pixels[(y * size) + x] = inside ? Color.White : Color.Transparent;
+                }
+            }
+        }
+
+        private static void FillTriangle(Color[] pixels, int size)
+        {
+            if (size == 1)
+            {
+                pixels[0] = Color.White;
+                return;
+            }
+
+            float centerX = (size - 1) * 0.5f;
+
+            for (int y = 0; y < size; y++)
+            {
+                float t = (float)y / (size - 1);
+                float halfWidth = t * centerX;
+                float minX = centerX - halfWidth;
+                float maxX = centerX + halfWidth;
+
+                for (int x = 0; x < size; x++)
+                {
+                    bool inside = x >= minX && x <= maxX;
+                    pixels[(y * size) + x] = inside ? Color.White : Color.Transparent;
+                }
+            }
+        }
+
+        private static void FillDiamond(Color[] pixels, int size)
+        {
+            float center = (size - 1) * 0.5f;
+            float radius = MathF.Max(1f, center);
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float md = MathF.Abs(x - center) + MathF.Abs(y - center);
+                    pixels[(y * size) + x] = md <= radius ? Color.White : Color.Transparent;
+                }
+            }
+        }
+
+        private static void FillHexagon(Color[] pixels, int size)
+        {
+            float c = (size - 1) * 0.5f;
+            float r = MathF.Max(1f, size * 0.48f);
+
+            var poly = BuildRegularPolygon(6, c, c, r, -MathF.PI / 2f);
+            FillPolygon(pixels, size, poly);
+        }
+
+        private static void FillStar(Color[] pixels, int size)
+        {
+            float c = (size - 1) * 0.5f;
+            float outer = MathF.Max(1f, size * 0.48f);
+            float inner = outer * 0.45f;
+
+            var points = new Vector2[10];
+            for (int i = 0; i < 10; i++)
+            {
+                float a = (-MathF.PI / 2f) + i * (MathF.PI / 5f);
+                float r = (i % 2 == 0) ? outer : inner;
+                points[i] = new Vector2(c + MathF.Cos(a) * r, c + MathF.Sin(a) * r);
+            }
+
+            FillPolygon(pixels, size, points);
+        }
+
+        private static void FillSaw(Color[] pixels, int size)
+        {
+            float c = (size - 1) * 0.5f;
+            float baseR = MathF.Max(1f, size * 0.34f);
+            float toothR = MathF.Max(baseR + 1f, size * 0.48f);
+            const int teeth = 14;
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float dx = x - c;
+                    float dy = y - c;
+                    float dist = MathF.Sqrt((dx * dx) + (dy * dy));
+                    if (dist > toothR)
+                    {
+                        pixels[(y * size) + x] = Color.Transparent;
+                        continue;
+                    }
+
+                    float ang = MathF.Atan2(dy, dx);
+                    float wave = MathF.Abs(MathF.Sin(ang * teeth));
+                    float threshold = baseR + (toothR - baseR) * wave;
+                    pixels[(y * size) + x] = dist <= threshold ? Color.White : Color.Transparent;
+                }
+            }
+        }
+
+        private static Vector2[] BuildRegularPolygon(int sides, float cx, float cy, float radius, float startAngle)
+        {
+            var points = new Vector2[sides];
+            for (int i = 0; i < sides; i++)
+            {
+                float a = startAngle + (MathF.Tau * i / sides);
+                points[i] = new Vector2(cx + MathF.Cos(a) * radius, cy + MathF.Sin(a) * radius);
+            }
+            return points;
+        }
+
+        private static void FillPolygon(Color[] pixels, int size, IReadOnlyList<Vector2> polygon)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    bool inside = PointInPolygon(new Vector2(x + 0.5f, y + 0.5f), polygon);
+                    pixels[(y * size) + x] = inside ? Color.White : Color.Transparent;
+                }
+            }
+        }
+
+        private static bool PointInPolygon(Vector2 point, IReadOnlyList<Vector2> polygon)
+        {
+            bool inside = false;
+            int count = polygon.Count;
+            for (int i = 0, j = count - 1; i < count; j = i++)
+            {
+                var pi = polygon[i];
+                var pj = polygon[j];
+
+                bool intersects = ((pi.Y > point.Y) != (pj.Y > point.Y))
+                    && (point.X < (pj.X - pi.X) * (point.Y - pi.Y) / ((pj.Y - pi.Y) + float.Epsilon) + pi.X);
+
+                if (intersects) inside = !inside;
+            }
+
+            return inside;
         }
 
         #endregion

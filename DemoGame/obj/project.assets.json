@@ -294,7 +294,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "B:\\Development\\RenbokoEngine\\DemoGame\\DemoGame.csproj",
-      "projectName": "DemoGame",
+      "projectName": "BlockJumper",
       "projectPath": "B:\\Development\\RenbokoEngine\\DemoGame\\DemoGame.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "B:\\Development\\RenbokoEngine\\DemoGame\\obj\\",

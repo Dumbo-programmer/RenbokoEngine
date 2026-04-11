@@ -27,6 +27,26 @@ Fonts and some assets are normally consumed as compiled MonoGame `.xnb` files. U
 
 If you prefer not to run the content pipeline, the engine's `AssetManager` includes a filesystem fallback for textures. Fonts, however, are best supplied as `.xnb`.
 
+## Built-in primitive assets (no files required)
+
+For prototyping, you can generate primitive textures directly from the engine:
+
+```csharp
+using RenbokoEngine.Assets;
+
+var cube = AssetManager.AcquireBuiltinTexture(BuiltinTextureShape.Cube, 64);
+var circle = AssetManager.AcquireBuiltinTexture(BuiltinTextureShape.Circle, 64);
+var triangle = AssetManager.AcquireBuiltinTexture(BuiltinTextureShape.Triangle, 64);
+```
+
+Available shapes: `Pixel`, `Square`, `Cube`, `Circle`, `Triangle`.
+
+Release when no longer needed:
+
+```csharp
+AssetManager.ReleaseBuiltinTexture(BuiltinTextureShape.Circle, 64);
+```
+
 ## Troubleshooting — common issues
 
 - Missing texture at runtime → verify file path and that the texture exists under `DemoGame/Content/` or the repository root. Use the debug log `renboko_debug.log` for diagnostics.

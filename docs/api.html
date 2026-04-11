@@ -25,6 +25,15 @@ var font = AssetManager.AcquireFont("DefaultFont");
 var sfx = AssetManager.AcquireSound("jump.wav");</code></pre>
     <p><strong>Note:</strong> Fonts typically require a built <code>.xnb</code> (use MGCB). If a font is missing at runtime, place the generated <code>.xnb</code> into <code>DemoGame/Content/</code> or build the content pipeline assets.</p>
 
+    <h3>Built-in Primitive Textures</h3>
+    <pre><code>// No external files required
+  var cube = AssetManager.AcquireBuiltinTexture(BuiltinTextureShape.Cube, 64);
+  var circle = AssetManager.AcquireBuiltinTexture(BuiltinTextureShape.Circle, 64);
+  var triangle = AssetManager.AcquireBuiltinTexture(BuiltinTextureShape.Triangle, 64);
+
+  // Release when done
+  AssetManager.ReleaseBuiltinTexture(BuiltinTextureShape.Circle, 64);</code></pre>
+
     <h3>Scene Example</h3>
     <pre><code>public class GameScene : Scene {
   private Sprite? player;
