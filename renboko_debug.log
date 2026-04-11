@@ -173,3 +173,13 @@ MainMenuScene.Render called
 Hard clicked
 GameScene.Start diff=Hard, floorY=600
 GameScene.Start diff=Hard, floorY=600
+MainMenuScene.Start called
+Font loaded
+MainMenuScene.Render called
+Hard clicked
+GameScene.Start diff=Hard, floorY=600
+MainMenuScene.Render called
+MainMenuScene.Start called
+Font loaded
+Easy clicked
+GameScene.Start diff=Easy, floorY=600

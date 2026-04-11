@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RenbokoEngine.Assets;
+using RenbokoEngine.Audio;
 using RenbokoEngine.Scenes;
 using RenbokoEngine.UI;
 using RenbokoEngine.Core;
@@ -48,7 +49,12 @@ namespace DemoGame
                 HoverBackground = new Color(44, 86, 78),
                 TextColor = new Color(236, 255, 244)
             };
-            start.OnClick = () => { try { File.AppendAllText("renboko_debug.log", "Start normal clicked\n"); } catch { } SceneManager.Load(new GameScene(GameDifficulty.Normal)); };
+            start.OnClick = () =>
+            {
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.UiConfirm());
+                try { File.AppendAllText("renboko_debug.log", "Start normal clicked\n"); } catch { }
+                SceneManager.Load(new GameScene(GameDifficulty.Normal));
+            };
             _ui.Add(start);
 
             var easy = new UIButton
@@ -59,7 +65,12 @@ namespace DemoGame
                 HoverBackground = new Color(52, 76, 112),
                 TextColor = new Color(234, 242, 255)
             };
-            easy.OnClick = () => { try { File.AppendAllText("renboko_debug.log", "Easy clicked\n"); } catch { } SceneManager.Load(new GameScene(GameDifficulty.Easy)); };
+            easy.OnClick = () =>
+            {
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.UiConfirm());
+                try { File.AppendAllText("renboko_debug.log", "Easy clicked\n"); } catch { }
+                SceneManager.Load(new GameScene(GameDifficulty.Easy));
+            };
             _ui.Add(easy);
 
             var hard = new UIButton
@@ -70,7 +81,12 @@ namespace DemoGame
                 HoverBackground = new Color(108, 50, 60),
                 TextColor = new Color(255, 235, 240)
             };
-            hard.OnClick = () => { try { File.AppendAllText("renboko_debug.log", "Hard clicked\n"); } catch { } SceneManager.Load(new GameScene(GameDifficulty.Hard)); };
+            hard.OnClick = () =>
+            {
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.UiConfirm());
+                try { File.AppendAllText("renboko_debug.log", "Hard clicked\n"); } catch { }
+                SceneManager.Load(new GameScene(GameDifficulty.Hard));
+            };
             _ui.Add(hard);
 
             var showcase = new UIButton
@@ -81,7 +97,12 @@ namespace DemoGame
                 HoverBackground = new Color(78, 62, 120),
                 TextColor = new Color(246, 240, 255)
             };
-            showcase.OnClick = () => { try { File.AppendAllText("renboko_debug.log", "Showcase button clicked\n"); } catch { } SceneManager.Load(new ShowcaseScene()); };
+            showcase.OnClick = () =>
+            {
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.UiConfirm());
+                try { File.AppendAllText("renboko_debug.log", "Showcase button clicked\n"); } catch { }
+                SceneManager.Load(new ShowcaseScene());
+            };
             _ui.Add(showcase);
         }
 

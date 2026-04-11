@@ -5,6 +5,7 @@ namespace RenbokoEngine.Audio
     public class AudioSource
     {
         private readonly SoundEffect sound;
+        private readonly bool ownsSound;
         private SoundEffectInstance instance;
 
         public bool Loop { get; set; } = false;
@@ -16,9 +17,10 @@ namespace RenbokoEngine.Audio
 
         public bool IsPlaying => instance?.State == SoundState.Playing;
 
-        public AudioSource(SoundEffect sound, string groupName = "Default")
+        public AudioSource(SoundEffect sound, string groupName = "Default", bool ownsSound = false)
         {
             this.sound = sound;
+            this.ownsSound = ownsSound;
             instance = sound.CreateInstance();
             instance.IsLooped = Loop;
 
@@ -67,6 +69,8 @@ namespace RenbokoEngine.Audio
         {
             Stop();
             instance?.Dispose();
+            if (ownsSound)
+                sound.Dispose();
             AudioSystem.UnregisterSource(this);
             Group?.UnregisterSource(this);
         }

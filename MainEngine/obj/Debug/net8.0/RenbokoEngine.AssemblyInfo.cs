@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RenbokoEngine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9822786f709a1c4b9e101d6cfaef18a329a2405")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+abc000586223a2e9c6f0dcc9524e952b26c15e92")]
 [assembly: System.Reflection.AssemblyProductAttribute("RenbokoEngine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RenbokoEngine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

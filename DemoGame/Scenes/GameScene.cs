@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using RenbokoEngine.Assets;
+using RenbokoEngine.Audio;
 using RenbokoEngine.Scenes;
 using RenbokoEngine.Graphics;
 using RenbokoEngine.Core;
@@ -214,6 +215,7 @@ namespace DemoGame
             // Global controls
             if (keyboard?.GetKeyDown(Keys.Escape) == true)
             {
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.UiConfirm());
                 SceneManager.Load(new MainMenuScene());
                 return;
             }
@@ -221,6 +223,7 @@ namespace DemoGame
             if (!_isGameOver && keyboard?.GetKeyDown(Keys.P) == true)
             {
                 _isPaused = !_isPaused;
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.PauseToggle());
             }
 
             if (_isPaused)
@@ -238,7 +241,10 @@ namespace DemoGame
             if (_isGameOver)
             {
                 if (keyboard?.GetKeyDown(Keys.Enter) == true || keyboard?.GetKeyDown(Keys.Space) == true)
+                {
+                    AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.UiConfirm());
                     SceneManager.Load(new GameScene(_difficulty));
+                }
                 return;
             }
 
@@ -246,6 +252,7 @@ namespace DemoGame
             {
                 _verticalVelocity = _jumpVelocity;
                 _isGrounded = false;
+                AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.Jump());
             }
 
             _verticalVelocity += _gravity * dt;
@@ -371,6 +378,7 @@ namespace DemoGame
                     if (playerRect.Intersects(obsRect))
                     {
                         _isGameOver = true;
+                        AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.Crash());
                         break;
                     }
                 }
@@ -382,6 +390,7 @@ namespace DemoGame
                     {
                         _slowMoTimer = 4f;
                         _pickups.RemoveAt(i);
+                        AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.Pickup());
                     }
                 }
 
@@ -393,6 +402,7 @@ namespace DemoGame
                         _verticalVelocity = _jumpVelocity * 1.12f;
                         _isGrounded = false;
                         _jumpPads[i].Cooldown = 0.22f;
+                        AudioSystem.PlayProceduralOneShot(ProceduralSfxPresets.Jump());
                     }
                 }
             }

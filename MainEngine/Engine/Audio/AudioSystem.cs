@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace RenbokoEngine.Audio
 {
@@ -67,6 +68,35 @@ namespace RenbokoEngine.Audio
         {
             foreach (var src in activeSources)
                 src.ApplyVolume();
+        }
+
+        /// <summary>
+        /// Create a SoundEffect at runtime using procedural synthesis settings.
+        /// The caller is responsible for disposing the returned SoundEffect.
+        /// </summary>
+        public static SoundEffect CreateProceduralSound(ProceduralSoundSettings settings)
+        {
+            return ProceduralAudioGenerator.Generate(settings);
+        }
+
+        /// <summary>
+        /// Create an AudioSource backed by a generated procedural SoundEffect.
+        /// The created source owns and disposes the generated SoundEffect.
+        /// </summary>
+        public static AudioSource CreateProceduralSource(ProceduralSoundSettings settings, string groupName = "Default")
+        {
+            var sound = ProceduralAudioGenerator.Generate(settings);
+            return new AudioSource(sound, groupName, ownsSound: true);
+        }
+
+        /// <summary>
+        /// Convenience helper for short one-shot procedural sounds.
+        /// </summary>
+        public static void PlayProceduralOneShot(ProceduralSoundSettings settings)
+        {
+            using var sound = ProceduralAudioGenerator.Generate(settings);
+            float volume = Muted ? 0f : MasterVolume;
+            sound.Play(volume, 0f, 0f);
         }
     }
 }
