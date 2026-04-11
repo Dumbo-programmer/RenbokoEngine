@@ -8,6 +8,9 @@ param(
     [switch]$Release
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
 $cfg = if ($Release) { 'Release' } else { 'Debug' }
 
 Write-Host "Building solution (configuration: $cfg)..."
@@ -17,3 +20,4 @@ if ($LASTEXITCODE -ne 0) { Write-Error "Build failed (exit $LASTEXITCODE)"; exit
 Write-Host "Launching DemoGame in Showcase mode..."
 $env:RENBE_SHOWCASE = '1'
 dotnet run --project DemoGame\DemoGame.csproj -c $cfg
+if ($LASTEXITCODE -ne 0) { Write-Error "dotnet run failed (exit $LASTEXITCODE)"; exit $LASTEXITCODE }

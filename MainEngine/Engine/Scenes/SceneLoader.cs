@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Numerics; // For System.Numerics.Microsoft.Xna.Framework.Vector2 in DTOs
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
 using RenbokoEngine.Graphics;
 using RenbokoEngine.Physics;
 using RenbokoEngine.Core;
-using RenbokoEngine.Assets;
 using RenbokoEngine.Audio;
 
 namespace RenbokoEngine.Scenes
@@ -37,9 +33,9 @@ namespace RenbokoEngine.Scenes
         public class EntityData
         {
             public string Name { get; set; } = "Entity";
-            public Microsoft.Xna.Framework.Vector2 Position { get; set; } = new Microsoft.Xna.Framework.Vector2(0,0);
+            public Microsoft.Xna.Framework.Vector2 Position { get; set; } = new Microsoft.Xna.Framework.Vector2(0, 0);
             public float Rotation { get; set; } = 0f;
-            public Microsoft.Xna.Framework.Vector2 Scale { get; set; } = new Microsoft.Xna.Framework.Vector2(1,1);
+            public Microsoft.Xna.Framework.Vector2 Scale { get; set; } = new Microsoft.Xna.Framework.Vector2(1, 1);
 
             // Optional components:
             public SpriteComponentData? Sprite { get; set; }
@@ -51,7 +47,7 @@ namespace RenbokoEngine.Scenes
         public class SpriteComponentData
         {
             public string TexturePath { get; set; } = "";
-            public Microsoft.Xna.Framework.Vector2 Origin { get; set; } = new Microsoft.Xna.Framework.Vector2(0,0);
+            public Microsoft.Xna.Framework.Vector2 Origin { get; set; } = new Microsoft.Xna.Framework.Vector2(0, 0);
             public float Layer { get; set; } = 0f;
         }
 
@@ -59,15 +55,15 @@ namespace RenbokoEngine.Scenes
         {
             public float Mass { get; set; } = 1f;
             public bool IsStatic { get; set; } = false;
-            public Microsoft.Xna.Framework.Vector2 InitialVelocity { get; set; } = new Microsoft.Xna.Framework.Vector2(0,0);
+            public Microsoft.Xna.Framework.Vector2 InitialVelocity { get; set; } = new Microsoft.Xna.Framework.Vector2(0, 0);
         }
 
         public class ColliderComponentData
         {
             public string Type { get; set; } = "Box"; // "Box" or "Circle"
-            public Microsoft.Xna.Framework.Vector2 Size { get; set; } = new Microsoft.Xna.Framework.Vector2(32,32); // for Box
+            public Microsoft.Xna.Framework.Vector2 Size { get; set; } = new Microsoft.Xna.Framework.Vector2(32, 32); // for Box
             public float Radius { get; set; } = 16f; // for Circle
-            public Microsoft.Xna.Framework.Vector2 Offset { get; set; } = new Microsoft.Xna.Framework.Vector2(0,0);
+            public Microsoft.Xna.Framework.Vector2 Offset { get; set; } = new Microsoft.Xna.Framework.Vector2(0, 0);
         }
 
         public class AudioComponentData
@@ -149,26 +145,26 @@ namespace RenbokoEngine.Scenes
                     e.Position = new Microsoft.Xna.Framework.Vector2(ed.Position.X, ed.Position.Y);
                     e.Rotation = ed.Rotation;
                     e.Scale = new Microsoft.Xna.Framework.Vector2(ed.Scale.X, ed.Scale.Y);
-//sprite
-if (ed.Sprite != null && !string.IsNullOrWhiteSpace(ed.Sprite.TexturePath))
-{
-    Texture2D tex;
-    try
-    {
-        tex = renderer.LoadTexture(ed.Sprite.TexturePath);
-    }
-    catch
-    {
-        tex = AssetManagerHelper.LoadTexture(ed.Sprite.TexturePath);
-    }
+                    //sprite
+                    if (ed.Sprite != null && !string.IsNullOrWhiteSpace(ed.Sprite.TexturePath))
+                    {
+                        Texture2D tex;
+                        try
+                        {
+                            tex = renderer.LoadTexture(ed.Sprite.TexturePath);
+                        }
+                        catch
+                        {
+                            tex = AssetManagerHelper.LoadTexture(ed.Sprite.TexturePath);
+                        }
 
-    e.Sprite = new Sprite(tex)
-    {
-        Origin = ed.Sprite.Origin,
-        Layer = ed.Sprite.Layer
-    };
-    e.SpriteTexturePath = ed.Sprite.TexturePath;
-}
+                        e.Sprite = new Sprite(tex)
+                        {
+                            Origin = ed.Sprite.Origin,
+                            Layer = ed.Sprite.Layer
+                        };
+                        e.SpriteTexturePath = ed.Sprite.TexturePath;
+                    }
 
 
                     // Rigidbody + Collider
@@ -208,24 +204,24 @@ if (ed.Sprite != null && !string.IsNullOrWhiteSpace(ed.Sprite.TexturePath))
                     }
 
                     // Audio
-if (ed.Audio != null && !string.IsNullOrWhiteSpace(ed.Audio.ClipPath))
-{
-    try
-    {
-        var sound = AssetManagerHelper.LoadSoundEffect(ed.Audio.ClipPath);
-        var src = new AudioSource(sound, ed.Audio.Group)
-        {
-            Volume = ed.Audio.Volume,
-            Loop = ed.Audio.Loop
-        };
-        e.AudioSource = src;
-        e.AudioClipPath = ed.Audio.ClipPath;
-    }
-    catch
-    {
-        // ignore
-    }
-}
+                    if (ed.Audio != null && !string.IsNullOrWhiteSpace(ed.Audio.ClipPath))
+                    {
+                        try
+                        {
+                            var sound = AssetManagerHelper.LoadSoundEffect(ed.Audio.ClipPath);
+                            var src = new AudioSource(sound, ed.Audio.Group)
+                            {
+                                Volume = ed.Audio.Volume,
+                                Loop = ed.Audio.Loop
+                            };
+                            e.AudioSource = src;
+                            e.AudioClipPath = ed.Audio.ClipPath;
+                        }
+                        catch
+                        {
+                            // ignore
+                        }
+                    }
 
 
                     _entities.Add(e);

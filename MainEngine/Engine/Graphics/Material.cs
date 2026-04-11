@@ -1,4 +1,4 @@
 namespace RenbokoEngine.Graphics
 {
-public class Material {}
+    public class Material { }
 }

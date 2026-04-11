@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
 using RenbokoEngine.Scenes;
 using RenbokoEngine.Graphics;
 using RenbokoEngine.Input;
-using RenbokoEngine.Audio;
 using RenbokoEngine.Physics;
 using RenbokoEngine.Assets;
 
@@ -83,18 +81,18 @@ namespace RenbokoEngine.Core
             SceneManager.Current?.Update();
 
             // Fixed-step physics loop (accumulator pattern)
-_accumulator += gameTime.ElapsedGameTime.TotalSeconds;
-time.FixedDelta = FixedDelta;
+            _accumulator += gameTime.ElapsedGameTime.TotalSeconds;
+            time.FixedDelta = FixedDelta;
 
-int maxSteps = 5; // avoid spiral of death
-int steps = 0;
-while (_accumulator >= FixedDelta && steps < maxSteps)
-{
-    SceneManager.Current?.FixedUpdate();
-    ServiceLocator.Get<PhysicsWorld>().Step(FixedDelta);
-    _accumulator -= FixedDelta;
-    steps++;
-}
+            int maxSteps = 5; // avoid spiral of death
+            int steps = 0;
+            while (_accumulator >= FixedDelta && steps < maxSteps)
+            {
+                SceneManager.Current?.FixedUpdate();
+                ServiceLocator.Get<PhysicsWorld>().Step(FixedDelta);
+                _accumulator -= FixedDelta;
+                steps++;
+            }
 
 
             base.Update(gameTime);

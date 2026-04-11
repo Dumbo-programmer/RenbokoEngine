@@ -8,6 +8,9 @@ param(
     [switch]$Release
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
 $cfg = if ($Release) { 'Release' } else { 'Debug' }
 
 Write-Host "Building solution (configuration: $cfg)..."
@@ -18,7 +21,9 @@ $exePath = Join-Path -Path "DemoGame\bin\$cfg\net8.0" -ChildPath "DemoGame.exe"
 if (Test-Path $exePath) {
     Write-Host "Launching executable: $exePath"
     & $exePath
+    if ($LASTEXITCODE -ne 0) { Write-Error "Demo executable failed (exit $LASTEXITCODE)"; exit $LASTEXITCODE }
 } else {
     Write-Host "Executable not found, falling back to dotnet run"
     dotnet run --project DemoGame\DemoGame.csproj -c $cfg
+    if ($LASTEXITCODE -ne 0) { Write-Error "dotnet run failed (exit $LASTEXITCODE)"; exit $LASTEXITCODE }
 }

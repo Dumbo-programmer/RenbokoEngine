@@ -27,7 +27,20 @@ jobs:
           dotnet nuget locals all --clear
           dotnet restore MainEngine/RenbokoWorkspace.sln
           dotnet restore DemoGame/DemoGame.csproj
+          dotnet restore Tests/RenbokoEngine.Tests/RenbokoEngine.Tests.csproj
+
+      - name: Format (auto)
+        run: |
+          dotnet format MainEngine/RenbokoWorkspace.sln --no-restore --verbosity minimal
+
       - name: Build
         run: dotnet build MainEngine/RenbokoWorkspace.sln --configuration Release --no-restore
+
       - name: Run DemoGame (smoke)
-        run: dotnet build DemoGame/DemoGame.csproj --configuration Release
+        run: dotnet build DemoGame/DemoGame.csproj --configuration Release --no-restore
+
+      - name: Build Tests
+        run: dotnet build Tests/RenbokoEngine.Tests/RenbokoEngine.Tests.csproj --configuration Release --no-restore
+
+      - name: Run Tests
+        run: dotnet test Tests/RenbokoEngine.Tests/RenbokoEngine.Tests.csproj --configuration Release --no-build --verbosity normal

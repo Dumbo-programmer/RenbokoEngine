@@ -1,5 +1,5 @@
+using System;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace RenbokoEngine.Assets
 {
@@ -20,7 +20,25 @@ namespace RenbokoEngine.Assets
         public string[] Misc { get; set; } = System.Array.Empty<string>(); // e.g. JSON prefabs, tilemaps, etc.
 
         public static AssetManifest FromJson(string json)
-            => JsonSerializer.Deserialize<AssetManifest>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new AssetManifest();
+        {
+            if (string.IsNullOrWhiteSpace(json)) return new AssetManifest();
+
+            try
+            {
+                return JsonSerializer.Deserialize<AssetManifest>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new AssetManifest();
+            }
+            catch (JsonException)
+            {
+                return new AssetManifest();
+            }
+            catch (NotSupportedException)
+            {
+                return new AssetManifest();
+            }
+        }
 
         public string ToJson()
             => JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });

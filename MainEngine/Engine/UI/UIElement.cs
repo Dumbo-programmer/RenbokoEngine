@@ -16,20 +16,20 @@ namespace RenbokoEngine.UI
 
         public void SetParent(UIElement parent) => Parent = parent;
 
-    // This gets called every frame so you can update input or state.
+        // This gets called every frame so you can update input or state.
         public virtual void Update() { }
 
-    // You gotta implement this to draw your UI element. The font comes from the scene.
+        // You gotta implement this to draw your UI element. The font comes from the scene.
         public abstract void Draw(Renderer2D renderer, SpriteFont font);
 
-    // Checks if a point (like the mouse) is inside this element (takes parent position into account).
+        // Checks if a point (like the mouse) is inside this element (takes parent position into account).
         public bool ContainsPoint(Point p)
         {
             var absPos = GetAbsoluteRect();
             return absPos.Contains(p);
         }
 
-    // Gets the real position of this element, including all parent offsets. Super useful for nested UI.
+        // Gets the real position of this element, including all parent offsets. Super useful for nested UI.
         public Rectangle GetAbsoluteRect()
         {
             if (Parent == null) return Rect;

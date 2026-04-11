@@ -66,12 +66,11 @@ namespace DemoGame
                 _renderLogged = true;
             }
 
-            if (font != null)
-            {
-                var title = "Renboko Demo";
-                var size = font.MeasureString(title);
-                renderer.DrawString(font, title, new Vector2(1280 / 2f - size.X / 2f, 200), Color.White);
-            }
+            if (font == null) return;
+
+            var title = "Renboko Demo";
+            var size = font.MeasureString(title);
+            renderer.DrawString(font, title, new Vector2(1280 / 2f - size.X / 2f, 200), Color.White);
 
             foreach (var u in _ui) u.Draw(renderer, font);
         }

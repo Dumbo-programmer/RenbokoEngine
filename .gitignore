@@ -1,0 +1,17 @@
+# .NET build outputs
+**/bin/
+**/obj/
+
+# Local artifacts
+artifacts/
+
+# IDE
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

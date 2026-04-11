@@ -1,4 +1,4 @@
 namespace RenbokoEngine.Graphics
 {
-public class Texture {}
+    public class Texture { }
 }

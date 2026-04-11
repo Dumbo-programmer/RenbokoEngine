@@ -1,76 +1,57 @@
 <div align="center">
-    <img src="RY.png" alt="RYENG" width="320"/>
+    <img src="RY.png" alt="Renboko" width="320"/>
 </div>
-
-
 
 # Renboko Game Engine
 
->A hobbyist 2D game engine built on MonoGame, with a simple demo game and a focus on learning, tinkering, and having fun.
+Renboko is a 2D game engine built on .NET 8 and MonoGame 3.8.4. The repository includes the engine, a playable demo, scripts for local workflows, and CI automation.
 
----
+## Repository layout
 
-## What is this?
-
-Renboko Game Engine is a modular, service-based 2D game engine for .NET 8 and MonoGame 3.8.4. It comes with a small demo game to show how things work. The code and comments are written in a casual, hobbyist style—so don't expect enterprise stuff here!
-
----
+- `MainEngine/`: engine project and core systems
+- `DemoGame/`: runnable sample game
+- `Tests/`: unit tests for core logic
+- `docs/`: static docs site
+- `scripts/`: build/run/publish helpers
 
 ## Features
-- Scene system with easy switching
-- Service locator for global systems (input, rendering, physics, audio, etc.)
-- 2D renderer with camera support
-- Physics (basic rigidbodies, box/circle colliders, collisions)
-- Asset manager for textures, audio, etc.
-- Retained-mode UI (buttons, labels, sliders, etc.)
-- Simple audio system with groups and volume control
-- Example demo game included
 
----
+- Scene-based gameplay flow
+- Service locator for core systems
+- 2D renderer with camera transform
+- Input, audio, and basic physics primitives
+- Asset manager with caching and fallback loading
+- Retained-mode UI controls
+- Endless-runner demo mode in `DemoGame`
 
-## Building & Running
+## Build, run, test
 
-1. **Build everything:**
-    ```sh
-    dotnet build RenbokoWorkspace.sln
-    ```
-2. **Run the demo game:**
-    ```sh
-    dotnet run --project DemoGame/DemoGame.csproj
-    ```
+From repository root:
 
----
+```powershell
+dotnet restore
+dotnet build MainEngine\RenbokoWorkspace.sln
+dotnet run --project DemoGame\DemoGame.csproj
+dotnet test Tests\RenbokoEngine.Tests\RenbokoEngine.Tests.csproj
+```
+
+## Scripts
+
+- Build and run demo: `scripts/build-and-run.ps1`
+- Run demo directly: `scripts/run-demo.ps1`
+- Run showcase mode: `scripts/run-showcase.ps1`
+- Publish package: `scripts/publish-demo.ps1`
+
+POSIX equivalents are available as `.sh` scripts.
 
 ## Documentation
-- See `Docs/README.md` for full engine docs, API, and examples.
-- See `Docs/DemoGame.md` for a walkthrough of the demo game.
 
----
-
-## Troubleshooting
-- If something breaks, check the troubleshooting sections in the docs. Most issues are missing assets, unregistered services, or typos.
-- If you fix a weird bug, add it to the docs for the next person!
-
----
+- Engine docs: `MainEngine/Docs/README.md`
+- Demo docs: `MainEngine/Docs/DemoGame.md`
+- Web docs: `docs/index.html`
+- Release process: `RELEASE.md`
+- Changelog: `CHANGELOG.md`
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 (GPLv3).
-
-```
-Renboko Game Engine
-Copyright (C) 2025  TawhidBinOmar
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-```
+GPL v3.0.
